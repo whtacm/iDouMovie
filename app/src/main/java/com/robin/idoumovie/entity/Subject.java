@@ -1,11 +1,12 @@
 package com.robin.idoumovie.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by haitao on 11/23/16.
  */
-public class Subject {
+public class Subject implements Serializable{
     private Rating rating;//
 
     private String[] genres;//

@@ -14,4 +14,6 @@
     <dimen name="textsize_13sp">13sp</dimen>
     <dimen name="between_item_margin_2dp">2dp</dimen>
     <dimen name="between_item_margin_1dp">1dp</dimen>
+    <dimen name="item_padding_8dp">8dp</dimen>
+    <dimen name="item_padding_4dp">4dp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 package com.robin.idoumovie.ui.base;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import butterknife.ButterKnife;
 /**
  * Created by haitao on 11/24/16.
  */
+@SuppressLint("ValidFragment")
 public class BaseFragment extends Fragment {
     /**
      *
@@ -22,7 +24,7 @@ public class BaseFragment extends Fragment {
 
     protected LayoutInflater inflater;
 
-    protected BaseFragment(int resId) {
+    public BaseFragment(int resId) {
         this.resId = resId;
     }
 

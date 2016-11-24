@@ -1,8 +1,10 @@
 package com.robin.idoumovie.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -27,6 +29,7 @@ import rx.Subscriber;
 /**
  *
  */
+@SuppressLint("ValidFragment")
 public class RecommendFragment extends BaseFragment {
     private View gallery_header;
 
@@ -53,18 +56,6 @@ public class RecommendFragment extends BaseFragment {
     public RecommendFragment(int resId) {
         super(resId);
     }
-
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        this.inflater = inflater;
-//        root = inflater.inflate(R.layout.fragment_recommend, container, false);
-//
-//        return root;
-//    }
-
 
     @Override
     public void initView() {
@@ -106,6 +97,13 @@ public class RecommendFragment extends BaseFragment {
             }
         });
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                
+            }
+        });
+
     }
 
     private void getMoreMovies() {
@@ -119,6 +117,7 @@ public class RecommendFragment extends BaseFragment {
 
                 @Override
                 public void onError(Throwable e) {
+                    refreshLayout.finishRefreshLoadMore();
                     LogUtil.v(e.getMessage());
                 }
 
@@ -145,17 +144,10 @@ public class RecommendFragment extends BaseFragment {
     public void initDate() {
         start = 0;
 
-        //getMovies();
-
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
+//        getMovies();
         refreshLayout.autoRefresh();
     }
+
 
     /**
      *
@@ -170,12 +162,13 @@ public class RecommendFragment extends BaseFragment {
 
                 @Override
                 public void onError(Throwable e) {
+                    refreshLayout.finishRefresh();
                     LogUtil.v(e.getMessage());
                 }
 
                 @Override
                 public void onNext(HttpResult<List<Subject>> listHttpResult) {
-                    refreshLayout.finishRefresh();
+
                     subjects.clear();
                     total = listHttpResult.getTotal();
                     start = listHttpResult.getCount();
@@ -186,6 +179,8 @@ public class RecommendFragment extends BaseFragment {
 
                     subjects.addAll(listHttpResult.getSubjects());
                     adapter.notifyDataSetChanged();
+
+                    refreshLayout.finishRefresh();
                 }
             }, 0, 10);
         } catch (Exception e) {

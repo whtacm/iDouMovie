@@ -1,18 +1,22 @@
 package com.robin.idoumovie.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.robin.idoumovie.R;
 import com.robin.idoumovie.entity.Subject;
+import com.robin.idoumovie.ui.activity.MovieDetailActivity;
 
 import java.util.List;
 
@@ -58,7 +62,7 @@ public class TopMoviewAdapter extends BaseAdapter {
         } else {
             vh = (ViewHolder) contentView.getTag();
         }
-        Subject sub = subjects.get(i);
+        final Subject sub = subjects.get(i);
 
         Glide.with(context)
                 .load(sub.getImages().small)
@@ -78,12 +82,23 @@ public class TopMoviewAdapter extends BaseAdapter {
         vh.directorTv.setText(sub.getDirectors().size() > 0 ? sub.getDirectors().get(0).name : "");
         vh.castsTv.setText(sub.getCasts().size() > 0 ? sub.getCasts().get(0).name : "");
 
+        vh.sub_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MovieDetailActivity.class);
+               // intent.putExtra("subject",sub);
+                context.startActivity(intent);
+            }
+        });
+
         return contentView;
     }
 
 
-
     class ViewHolder {
+        @Bind(R.id.sub_rl)
+        RelativeLayout sub_rl;
+
         @Bind(R.id.poster)
         ImageView posterImg;
 
