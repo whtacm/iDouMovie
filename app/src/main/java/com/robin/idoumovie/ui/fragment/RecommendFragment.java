@@ -1,19 +1,20 @@
 package com.robin.idoumovie.ui.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.robin.idoumovie.R;
 import com.robin.idoumovie.adapter.GalleryAdapter;
 import com.robin.idoumovie.adapter.TopMoviewAdapter;
 import com.robin.idoumovie.entity.HttpResult;
 import com.robin.idoumovie.entity.Subject;
+import com.robin.idoumovie.service.HttpMethods;
+import com.robin.idoumovie.ui.base.BaseFragment;
 import com.robin.idoumovie.util.LogUtil;
 
 import java.util.LinkedList;
@@ -21,10 +22,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import com.robin.idoumovie.service.HttpMethods;
-import com.robin.idoumovie.ui.base.BaseFragment;
-
 import rx.Subscriber;
 
 /**
@@ -33,12 +30,13 @@ import rx.Subscriber;
 public class RecommendFragment extends BaseFragment {
     private View gallery_header;
 
-
-
     Banner banner;
 
     @Bind(R.id.listview)
     ListView listview;
+
+    @Bind(R.id.refresh)
+    MaterialRefreshLayout refreshLayout;
 
     ImageView[] imgs;
 
@@ -83,7 +81,7 @@ public class RecommendFragment extends BaseFragment {
             img.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
 
-        listview.addHeaderView(gallery_header);
+        //listview.addHeaderView(gallery_header);
 
         banner.vp.setAdapter(new GalleryAdapter(imgs, banner.dots));
 
@@ -95,15 +93,69 @@ public class RecommendFragment extends BaseFragment {
     @Override
     public void initEvent() {
         banner.vp.setOnPageChangeListener(new GalleryChangeListener());
+
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getMovies();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                getMoreMovies();
+            }
+        });
+
+    }
+
+    private void getMoreMovies() {
+
+        try {
+            HttpMethods.getInstance().getTop(new Subscriber<HttpResult<List<Subject>>>() {
+                @Override
+                public void onCompleted() {
+                    LogUtil.v("data completed");
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    LogUtil.v(e.getMessage());
+                }
+
+                @Override
+                public void onNext(HttpResult<List<Subject>> listHttpResult) {
+                    refreshLayout.finishRefreshLoadMore();
+                    total = listHttpResult.getTotal();
+                    start += listHttpResult.getCount();
+
+                    for (Subject subject : listHttpResult.getSubjects()) {
+                        LogUtil.v(subject.getTitle());
+                    }
+                    subjects.addAll(listHttpResult.getSubjects());
+                    adapter.notifyDataSetChanged();
+                }
+            }, start, 10);
+        } catch (Exception e) {
+            LogUtil.v(e.getMessage());
+        }
+
     }
 
     @Override
     public void initDate() {
         start = 0;
 
-        getMovies();
+        //getMovies();
+
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        refreshLayout.autoRefresh();
+    }
 
     /**
      *
@@ -123,16 +175,19 @@ public class RecommendFragment extends BaseFragment {
 
                 @Override
                 public void onNext(HttpResult<List<Subject>> listHttpResult) {
+                    refreshLayout.finishRefresh();
+                    subjects.clear();
                     total = listHttpResult.getTotal();
-                    start += listHttpResult.getCount();
+                    start = listHttpResult.getCount();
 
                     for (Subject subject : listHttpResult.getSubjects()) {
                         LogUtil.v(subject.getTitle());
                     }
+
                     subjects.addAll(listHttpResult.getSubjects());
                     adapter.notifyDataSetChanged();
                 }
-            }, start, 10);
+            }, 0, 10);
         } catch (Exception e) {
             LogUtil.v(e.getMessage());
         }

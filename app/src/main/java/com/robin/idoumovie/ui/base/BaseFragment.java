@@ -22,7 +22,7 @@ public class BaseFragment extends Fragment {
 
     protected LayoutInflater inflater;
 
-    protected BaseFragment(int resId){
+    protected BaseFragment(int resId) {
         this.resId = resId;
     }
 
@@ -32,13 +32,14 @@ public class BaseFragment extends Fragment {
         this.inflater = inflater;
         root = inflater.inflate(resId, container, false);
         ButterKnife.bind(this, root);
-        initAll();
+
         return root;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initAll();
     }
 
     private void initAll() {

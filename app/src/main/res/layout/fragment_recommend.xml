@@ -1,13 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:isLoadMore="true"
+    app:overlay="true"
     android:background="@android:color/white"
-    tools:context="com.robin.idoumovie.ui.fragment.RecommendFragment">
+    app:progress_colors="@array/material_colors"
+    app:wave_color="#90ffffff"
+
+    app:wave_height_type="higher"
+    app:wave_show="true">
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</FrameLayout>
+</com.cjj.MaterialRefreshLayout>
