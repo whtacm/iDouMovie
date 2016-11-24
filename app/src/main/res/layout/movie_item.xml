@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/select_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/item_padding_6dp"
+        android:paddingLeft="@dimen/item_padding_12dp"
+        android:paddingRight="@dimen/item_padding_12dp"
+        android:paddingTop="@dimen/item_padding_6dp">
+
+
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="75dp"
+            android:layout_height="111dp"
+            android:layout_marginRight="@dimen/item_padding_6dp"
+            android:scaleType="fitCenter"
+            android:src="@color/bg_light_gray" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/title_text_style_mw"
+            android:layout_marginBottom="@dimen/between_item_margin_2dp"
+            android:layout_toRightOf="@id/poster"
+            android:text="@string/title" />
+
+        <LinearLayout
+            android:id="@+id/original_title_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_tv"
+            android:layout_marginTop="@dimen/between_item_margin_1dp"
+            android:layout_toRightOf="@id/poster"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/content_text_style_ww"
+                android:text="@string/original_title" />
+
+            <TextView
+                android:id="@+id/original_title_tv"
+                style="@style/content_text_style_ww"
+                android:text="@string/original_title_placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/score_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/original_title_ll"
+            android:layout_marginTop="@dimen/between_item_margin_1dp"
+            android:layout_toRightOf="@id/poster"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/content_text_style_ww"
+                android:text="@string/score" />
+
+            <TextView
+                android:id="@+id/score_tv"
+                style="@style/content_text_style_ww"
+                android:text="@string/score_placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/genres_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/score_ll"
+            android:layout_marginTop="@dimen/between_item_margin_1dp"
+            android:layout_toRightOf="@id/poster"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/content_text_style_ww"
+                android:text="@string/genres" />
+
+            <TextView
+                android:id="@+id/genres_tv"
+                style="@style/content_text_style_ww"
+                android:text="@string/genres_placeholder" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/year_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genres_ll"
+            android:layout_marginTop="@dimen/between_item_margin_1dp"
+            android:layout_toRightOf="@id/poster"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/content_text_style_ww"
+                android:text="@string/year" />
+
+            <TextView
+                android:id="@+id/year_tv"
+                style="@style/content_text_style_ww"
+                android:text="@string/year_placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/director_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/year_ll"
+            android:layout_marginTop="@dimen/between_item_margin_1dp"
+            android:layout_toRightOf="@id/poster"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/content_text_style_ww"
+                android:text="@string/director" />
+
+            <TextView
+                android:id="@+id/director_tv"
+                style="@style/content_text_style_ww"
+                android:text="@string/director_placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/casts_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/director_ll"
+            android:layout_marginTop="@dimen/between_item_margin_1dp"
+            android:layout_toRightOf="@id/poster"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/content_text_style_ww"
+                android:text="@string/casts" />
+
+            <TextView
+                android:id="@+id/casts_tv"
+                style="@style/content_text_style_ww"
+                android:text="@string/casts_placeholder" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/detail_btn"
+            style="@style/item_button_style"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="@string/detail" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:paddingLeft="@dimen/item_padding_12dp"
+        android:src="@color/bg_light_gray" />
+</LinearLayout>

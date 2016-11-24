@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">豆电影</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">肖申克的救赎</string>
+    <string name="score"><![CDATA[评分: ]]></string>
+    <string name="info">info</string>
+    <string name="detail"><![CDATA[详情>>]]></string>
+    <string name="score_placeholder">9.0</string>
+    <string name="original_title"><![CDATA[又名: ]]></string>
+    <string name="year"><![CDATA[上映年份: ]]></string>
+    <string name="director"><![CDATA[导演: ]]></string>
+    <string name="casts"><![CDATA[主演: ]]></string>
+    <string name="genres"><![CDATA[类型: ]]></string>
+    <string name="year_placeholder">1994</string>
+    <string name="original_title_placeholder">The Shawshank Redemption</string>
+    <string name="casts_placeholder">蒂姆·罗宾斯/摩根·弗里曼</string>
+    <string name="genres_placeholder">犯罪/剧情</string>
+    <string name="director_placeholder">弗兰克·德拉邦特</string>
+</resources>
