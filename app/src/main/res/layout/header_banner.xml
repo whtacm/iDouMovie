@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:youth="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/banner_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:background="@color/bg_light_gray"
+    android:paddingBottom="@dimen/item_padding_4dp"
+    android:orientation="vertical">
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        youth:title_height="24dp"
+        android:background="@android:color/white"
+        youth:title_textsize="@dimen/txt_size_12sp">
+
+    </com.youth.banner.Banner>
+
+
+</LinearLayout>
+
+

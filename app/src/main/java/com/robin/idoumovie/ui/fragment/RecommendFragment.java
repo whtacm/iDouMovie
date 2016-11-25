@@ -2,28 +2,28 @@ package com.robin.idoumovie.ui.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.support.v4.view.ViewPager;
+import android.content.Context;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.robin.idoumovie.R;
-import com.robin.idoumovie.adapter.GalleryAdapter;
 import com.robin.idoumovie.adapter.TopMoviewAdapter;
 import com.robin.idoumovie.entity.HttpResult;
 import com.robin.idoumovie.entity.Subject;
 import com.robin.idoumovie.service.HttpMethods;
 import com.robin.idoumovie.ui.base.BaseFragment;
 import com.robin.idoumovie.util.LogUtil;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.loader.ImageLoader;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.Subscriber;
 
 /**
@@ -31,19 +31,12 @@ import rx.Subscriber;
  */
 @SuppressLint("ValidFragment")
 public class RecommendFragment extends BaseFragment {
-    private View gallery_header;
-
-    Banner banner;
 
     @Bind(R.id.listview)
     ListView listview;
 
     @Bind(R.id.refresh)
     MaterialRefreshLayout refreshLayout;
-
-    ImageView[] imgs;
-
-    Subject[] headerSubjects;
 
     List<Subject> subjects = new LinkedList<>();
 
@@ -53,29 +46,35 @@ public class RecommendFragment extends BaseFragment {
 
     TopMoviewAdapter adapter;
 
+    View header;
+
+    Banner banner;
+
+    List<String> bannerTitles;
+    List<String> bannerUrl;
+
     public RecommendFragment(int resId) {
         super(resId);
     }
 
+
     @Override
     public void initView() {
-        gallery_header = inflater.inflate(R.layout.gallery_header, null);
+        bannerTitles = new LinkedList<>();
+        bannerUrl = new LinkedList<>();
 
-        banner = new Banner(gallery_header);
+        header = inflater.inflate(R.layout.header_banner, listview, false);
+        header.setVisibility(View.INVISIBLE);
+        banner = (Banner) header.findViewById(R.id.banner);
+        banner.
+                setImageLoader(new GlideImageLoader())
+                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                .setBannerTitles(bannerTitles)
+                .setImages(bannerUrl)
+                .isAutoPlay(false)
+                .start();
 
-        imgs = new ImageView[3];
-        headerSubjects = new Subject[3];
-        for (int i = 0; i < imgs.length; i++) {
-            ImageView img = new ImageView(getActivity());
-            imgs[i] = img;
-            img.setImageResource(R.mipmap.movie_poster);
-            img.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
-
-        //listview.addHeaderView(gallery_header);
-
-        banner.vp.setAdapter(new GalleryAdapter(imgs, banner.dots));
-
+        listview.addHeaderView(header);
         adapter = new TopMoviewAdapter(getActivity(), subjects);
         listview.setAdapter(adapter);
 
@@ -83,7 +82,6 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     public void initEvent() {
-        banner.vp.setOnPageChangeListener(new GalleryChangeListener());
 
         refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
@@ -143,7 +141,7 @@ public class RecommendFragment extends BaseFragment {
             public void run() {
                 refreshLayout.autoRefresh();
             }
-        },500);
+        }, 500);
     }
 
 
@@ -176,8 +174,22 @@ public class RecommendFragment extends BaseFragment {
                     }
 
                     subjects.addAll(listHttpResult.getSubjects());
-                    adapter.notifyDataSetChanged();
+                    header.setVisibility(View.VISIBLE);
 
+
+                    bannerUrl.clear();
+                    bannerUrl.add("");
+                    bannerUrl.add("");
+                    bannerUrl.add("");
+
+                    bannerTitles.clear();
+                    bannerTitles.add("怎么加载其他图片资源-11");
+                    bannerTitles.add("怎么加载其他图片资源-12");
+                    bannerTitles.add("怎么加载其他图片资源-13");
+                    banner.setImages(bannerUrl)
+                            .setBannerTitles(bannerTitles)
+                            .start();
+                    adapter.notifyDataSetChanged();
                     refreshLayout.finishRefresh();
                 }
             }, 0, 10);
@@ -187,43 +199,21 @@ public class RecommendFragment extends BaseFragment {
 
     }
 
-    private class GalleryChangeListener implements ViewPager.OnPageChangeListener {
-        public GalleryChangeListener() {
+
+    class GlideImageLoader extends ImageLoader {
+
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+//            imageLoader.displayImage((String) path, imageView, options);
+            imageView.setImageResource(R.mipmap.bg1);
         }
 
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        public ImageView createImageView(Context context) {
+            ImageView simpleDraweeView = new ImageView(context);
+            simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            for (int i = 0; i < banner.dots.size(); i++) {
-                if (i == position) {
-                    banner.dots.get(i).setBackgroundResource(R.drawable.dot_focused);
-                } else {
-                    banner.dots.get(i).setBackgroundResource(R.drawable.dot_normal);
-                }
-            }
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    }
-
-    class Banner {
-        @Bind(R.id.vp)
-        ViewPager vp;
-
-        @Bind({R.id.v_dot0, R.id.v_dot1, R.id.v_dot2})
-        List<View> dots;
-
-        Banner(View view) {
-
-            ButterKnife.bind(this, view);
+            return simpleDraweeView;
         }
     }
 }
