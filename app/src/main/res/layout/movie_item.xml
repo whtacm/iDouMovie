@@ -2,19 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_light_gray"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/item_padding_4dp"
-    android:paddingLeft="@dimen/item_padding_8dp"
-    android:paddingRight="@dimen/item_padding_8dp"
-    android:paddingTop="@dimen/item_padding_4dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/sub_rl"
+        style="@style/item_inner_padding_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/select_bg"
-        android:padding="@dimen/item_padding_8dp">
+        android:background="@drawable/select_bg">
 
 
         <ImageView
@@ -169,6 +164,5 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:paddingLeft="@dimen/item_padding_12dp"
-        android:src="@color/bg_light_gray"
-        android:visibility="gone" />
+        android:src="@color/bg_light_gray" />
 </LinearLayout>

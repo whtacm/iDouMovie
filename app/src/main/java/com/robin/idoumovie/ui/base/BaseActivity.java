@@ -9,14 +9,7 @@ import butterknife.ButterKnife;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ButterKnife.bind(this);
-        initAll();
-    }
-
-    private void initAll() {
+    protected void initAll() {
         initView();
         initEvent();
         initDate();

@@ -96,14 +96,6 @@ public class RecommendFragment extends BaseFragment {
                 getMoreMovies();
             }
         });
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                
-            }
-        });
-
     }
 
     private void getMoreMovies() {
@@ -123,7 +115,7 @@ public class RecommendFragment extends BaseFragment {
 
                 @Override
                 public void onNext(HttpResult<List<Subject>> listHttpResult) {
-                    refreshLayout.finishRefreshLoadMore();
+
                     total = listHttpResult.getTotal();
                     start += listHttpResult.getCount();
 
@@ -132,6 +124,7 @@ public class RecommendFragment extends BaseFragment {
                     }
                     subjects.addAll(listHttpResult.getSubjects());
                     adapter.notifyDataSetChanged();
+                    refreshLayout.finishRefreshLoadMore();
                 }
             }, start, 10);
         } catch (Exception e) {
@@ -144,8 +137,13 @@ public class RecommendFragment extends BaseFragment {
     public void initDate() {
         start = 0;
 
-//        getMovies();
-        refreshLayout.autoRefresh();
+        //getMovies();
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.autoRefresh();
+            }
+        },500);
     }
 
 

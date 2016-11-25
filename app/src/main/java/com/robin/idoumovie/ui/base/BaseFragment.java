@@ -34,14 +34,8 @@ public class BaseFragment extends Fragment {
         this.inflater = inflater;
         root = inflater.inflate(resId, container, false);
         ButterKnife.bind(this, root);
-
-        return root;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         initAll();
+        return root;
     }
 
     private void initAll() {

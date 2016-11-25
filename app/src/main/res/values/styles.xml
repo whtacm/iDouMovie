@@ -11,7 +11,6 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -49,6 +48,20 @@
         <item name="android:textColor">@color/text_light_gray</item>
         <item name="android:textSize">@dimen/textsize_14sp</item>
 
+    </style>
+
+    <style name="item_outter_padding_style">
+        <item name="android:paddingLeft">@dimen/item_padding_8dp</item>
+        <item name="android:paddingRight">@dimen/item_padding_8dp</item>
+        <item name="android:paddingTop">@dimen/item_padding_4dp</item>
+        <item name="android:paddingBottom">@dimen/item_padding_4dp</item>
+    </style>
+
+    <style name="item_inner_padding_style">
+        <item name="android:paddingLeft">@dimen/item_padding_12dp</item>
+        <item name="android:paddingRight">@dimen/item_padding_8dp</item>
+        <item name="android:paddingTop">@dimen/item_padding_8dp</item>
+        <item name="android:paddingBottom">@dimen/item_padding_12dp</item>
     </style>
 
 </resources>

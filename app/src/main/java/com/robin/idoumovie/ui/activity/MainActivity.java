@@ -19,6 +19,7 @@ import com.robin.idoumovie.adapter.MainPagerAdapter;
 import com.robin.idoumovie.ui.base.BaseActivity;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +45,8 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        initAll();
     }
 
     @Override
