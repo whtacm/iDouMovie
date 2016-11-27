@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.robin.idoumovie.R;
@@ -71,7 +72,8 @@ public class RecommendFragment extends BaseFragment {
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setBannerTitles(bannerTitles)
                 .setImages(bannerUrl)
-                .isAutoPlay(false)
+                .isAutoPlay(true)
+                .setDelayTime(5000)
                 .start();
 
         listview.addHeaderView(header);
@@ -82,7 +84,6 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     public void initEvent() {
-
         refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
@@ -178,16 +179,11 @@ public class RecommendFragment extends BaseFragment {
 
 
                     bannerUrl.clear();
-                    bannerUrl.add("");
-                    bannerUrl.add("");
-                    bannerUrl.add("");
-
-                    bannerTitles.clear();
-                    bannerTitles.add("怎么加载其他图片资源-11");
-                    bannerTitles.add("怎么加载其他图片资源-12");
-                    bannerTitles.add("怎么加载其他图片资源-13");
+                    bannerUrl.add("http://img5.imgtn.bdimg.com/it/u=233600343,1016365940&fm=23&gp=0.jpg");
+                    bannerUrl.add("http://img.loorin.com/data/attachment/forum/201506/28/093003vpdvoz4lcl5191k0.jpg");
+                    bannerUrl.add("http://img0.ph.126.net/jEfaSloPBy3q2gVsG_0S-w==/6630259624652424975.jpg");
+                    bannerUrl.add("http://pic36.photophoto.cn/20150730/0023006444962145_b.jpg");
                     banner.setImages(bannerUrl)
-                            .setBannerTitles(bannerTitles)
                             .start();
                     adapter.notifyDataSetChanged();
                     refreshLayout.finishRefresh();
@@ -205,13 +201,20 @@ public class RecommendFragment extends BaseFragment {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
 //            imageLoader.displayImage((String) path, imageView, options);
-            imageView.setImageResource(R.mipmap.bg1);
+//            imageView.setImageResource(R.mipmap.bg1);
+
+            Glide.with(context)
+                    .load(path)
+                    .dontAnimate()
+                    .into(imageView);
         }
 
         @Override
         public ImageView createImageView(Context context) {
             ImageView simpleDraweeView = new ImageView(context);
-            simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            ViewGroup.LayoutParams lp = new Gallery.LayoutParams(Gallery.LayoutParams.MATCH_PARENT, Gallery.LayoutParams.MATCH_PARENT);
+//            simpleDraweeView.setLayoutParams(lp);
 
             return simpleDraweeView;
         }

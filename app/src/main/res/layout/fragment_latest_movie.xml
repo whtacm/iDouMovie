@@ -5,6 +5,10 @@
     android:background="@android:color/white"
     tools:context="com.robin.idoumovie.ui.fragment.LatestMovieFragment">
 
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@mipmap/bg1"/>
 
 </FrameLayout>

@@ -2,6 +2,7 @@ package com.robin.idoumovie.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -66,10 +67,17 @@ public class TopMoviewAdapter extends BaseAdapter {
 
         Glide.with(context)
                 .load(sub.getImages().small)
+                .dontAnimate()
                 .into(vh.posterImg);
 
         vh.titleTv.setText(sub.getTitle());
         vh.original_titleTv.setText(sub.getOriginal_title());
+        if (sub.getRating().average>=9.0){
+            vh.scoreTv.setTextColor(context.getResources().getColor(R.color.hot));
+        }else if (sub.getRating().average>=8.0){
+            vh.scoreTv.setTextColor(context.getResources().getColor(R.color.pop));
+        }
+
         vh.scoreTv.setText("" + sub.getRating().average);
 
         StringBuilder genres = new StringBuilder();
